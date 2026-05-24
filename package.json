@@ -1,0 +1,20 @@
+{
+  "name": "x402-cn402-x402node-mcp",
+  "version": "0.1.0",
+  "description": "MCP server exposing 124 x402 endpoints from cn402.com and x402node.dev",
+  "type": "module",
+  "main": "mcp-server.js",
+  "bin": {
+    "x402-cn402-x402node-mcp": "./mcp-server.js"
+  },
+  "scripts": {
+    "start": "node mcp-server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "viem": "^2.50.4",
+    "x402-fetch": "^1.2.0"
+  },
+  "license": "MIT"
+}
