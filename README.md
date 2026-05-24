@@ -12,15 +12,20 @@ MCP server bringing 100+ x402-paid APIs to AI agents (Claude, Cursor, MCP-aware 
 
 ## Install
 
+```bash
 git clone https://github.com/x402node/x402-mcp
 cd x402-mcp
 npm install
 cp .env.example .env
+```
+
+Edit `.env`: set `X402_PRIVATE_KEY` to a Base EOA with USDC.
 
 ## Use with Claude Desktop
 
-Add to claude_desktop_config.json:
+Add to `claude_desktop_config.json`:
 
+```json
 {
   "mcpServers": {
     "x402-mcp": {
@@ -30,6 +35,7 @@ Add to claude_desktop_config.json:
     }
   }
 }
+```
 
 ## How it works
 
