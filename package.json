@@ -1,20 +1,54 @@
 {
-  "name": "x402-cn402-x402node-mcp",
+  "name": "x402-mcp",
   "version": "0.1.0",
-  "description": "MCP server exposing 124 x402 endpoints from cn402.com and x402node.dev",
+  "description": "MCP server that exposes x402 paid APIs as Model Context Protocol tools. Auto-discovers endpoints from the Coinbase Bazaar registry and handles USDC payments on Base mainnet transparently.",
   "type": "module",
   "main": "mcp-server.js",
   "bin": {
-    "x402-cn402-x402node-mcp": "./mcp-server.js"
+    "x402-mcp": "./mcp-server.js"
   },
+  "files": [
+    "mcp-server.js",
+    "test-client.mjs",
+    ".env.example",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "start": "node mcp-server.js"
+    "start": "node mcp-server.js",
+    "test": "node test-client.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "x402",
+    "usdc",
+    "base",
+    "coinbase",
+    "payment",
+    "agent",
+    "claude",
+    "anthropic",
+    "ai-agent",
+    "stablecoin"
+  ],
+  "author": "CKING LLC",
+  "license": "MIT",
+  "homepage": "https://github.com/x402node/x402-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/x402node/x402-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/x402node/x402-mcp/issues"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
-    "dotenv": "^16.4.5",
-    "viem": "^2.50.4",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "dotenv": "^17.4.2",
+    "viem": "^2.51.0",
     "x402-fetch": "^1.2.0"
-  },
-  "license": "MIT"
+  }
 }

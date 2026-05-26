@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "x402": {
+      "command": "node",
+      "args": ["/home/ubuntu/x402-mcp/active.js"],
+      "env": {
+        "WALLET_PRIVATE_KEY": "0xREPLACE_WITH_YOUR_PRIVATE_KEY"
+      }
+    }
+  }
+}
