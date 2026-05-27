@@ -1,6 +1,7 @@
 {
   "name": "x402node-mcp",
-  "version": "0.1.0",
+  "mcpName": "io.github.x402node/x402-mcp",
+  "version": "0.1.1",
   "description": "MCP server that exposes x402 paid APIs as Model Context Protocol tools. Auto-discovers endpoints from the Coinbase Bazaar registry and handles USDC payments on Base mainnet transparently.",
   "type": "module",
   "main": "mcp-server.js",
