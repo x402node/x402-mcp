@@ -10,18 +10,7 @@ MCP server bringing 100+ x402-paid APIs to AI agents (Claude, Cursor, MCP-aware 
 - Handles HTTP 402 + USDC payment automatically
 - Multi-chain ready via x402 protocol (Base today; Solana, Polygon, BNB, EVM expansion)
 
-## Install
-
-```bash
-git clone https://github.com/x402node/x402-mcp
-cd x402-mcp
-npm install
-cp .env.example .env
-```
-
-Edit `.env`: set `X402_PRIVATE_KEY` to a Base EOA with USDC.
-
-## Use with Claude Desktop
+## Install (Claude Desktop)
 
 Add to `claude_desktop_config.json`:
 
@@ -29,23 +18,43 @@ Add to `claude_desktop_config.json`:
 {
   "mcpServers": {
     "x402-mcp": {
-      "command": "node",
-      "args": ["/absolute/path/to/x402-mcp/mcp-server.js"],
-      "env": { "X402_PRIVATE_KEY": "0xYOUR_KEY" }
+      "command": "npx",
+      "args": ["-y", "x402node-mcp"],
+      "env": { "X402_PRIVATE_KEY": "0xYOUR_BASE_PRIVATE_KEY" }
     }
   }
 }
 ```
 
+Set `X402_PRIVATE_KEY` to a Base EOA private key (hex, 0x-prefixed) with USDC on Base mainnet. Restart Claude Desktop. The server auto-discovers ~117 tools on first run.
+
+## Cost Safety
+
+- Each tool call costs $0.0001-$0.10 USDC depending on endpoint
+- Hard cap: `MAX_PRICE_USD` env var (default $0.10/call); calls above are blocked
+- Use a fresh burner wallet, not your main wallet
+
 ## How it works
 
-Agent calls tool → HTTP 402 → x402-fetch signs EIP-3009 → CDP Facilitator settles on Base → response returned. Buyer pays no gas.
+Agent calls tool -> HTTP 402 -> x402-fetch signs EIP-3009 -> CDP Facilitator settles on Base -> response returned. Buyer pays no gas.
+
+## Development
+
+```bash
+git clone https://github.com/x402node/x402-mcp
+cd x402-mcp
+npm install
+cp .env.example .env  # edit X402_PRIVATE_KEY
+node mcp-server.js
+```
 
 ## Links
 
 - x402 protocol: https://x402.org
 - CDP Bazaar: https://docs.cdp.coinbase.com/x402/bazaar
 - MCP: https://modelcontextprotocol.io
+- npm: https://www.npmjs.com/package/x402node-mcp
+- Glama: https://glama.ai/mcp/servers/x402node/x402-mcp
 
 ## License
 
