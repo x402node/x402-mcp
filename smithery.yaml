@@ -1,0 +1,18 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      BUYER_PRIVATE_KEY:
+        type: string
+        title: "Buyer Wallet Private Key"
+        description: "Your Base mainnet wallet private key (0x prefixed, 64 hex chars). Used to pay x402 endpoints in USDC. Keep funded with a small USDC balance for payments."
+        format: password
+    required:
+      - BUYER_PRIVATE_KEY
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['mcp-server.js'],
+      env: { BUYER_PRIVATE_KEY: config.BUYER_PRIVATE_KEY }
+    })
