@@ -3,16 +3,36 @@ startCommand:
   configSchema:
     type: object
     properties:
-      BUYER_PRIVATE_KEY:
+      X402_PRIVATE_KEY:
         type: string
-        title: "Buyer Wallet Private Key"
-        description: "Your Base mainnet wallet private key (0x prefixed, 64 hex chars). Used to pay x402 endpoints in USDC. Keep funded with a small USDC balance for payments."
+        title: "X402 Wallet Private Key"
+        description: "Base mainnet wallet private key (0x prefixed, 64 hex chars). Used to pay x402 endpoints in USDC. Keep funded with a small USDC balance."
         format: password
+      BASE_RPC_URL:
+        type: string
+        title: "Base RPC URL"
+        description: "Optional Base mainnet RPC endpoint."
+        default: "https://mainnet.base.org"
+      X402_MAX_PRICE_USD:
+        type: string
+        title: "Max Price Per Call (USD)"
+        description: "Maximum USDC per endpoint call."
+        default: "0.5"
+      X402_REFRESH_MIN:
+        type: string
+        title: "Refresh Interval (min)"
+        description: "How often to refresh endpoint catalog from Bazaar."
+        default: "5"
     required:
-      - BUYER_PRIVATE_KEY
+      - X402_PRIVATE_KEY
   commandFunction: |-
     (config) => ({
       command: 'node',
       args: ['mcp-server.js'],
-      env: { BUYER_PRIVATE_KEY: config.BUYER_PRIVATE_KEY }
+      env: {
+        X402_PRIVATE_KEY: config.X402_PRIVATE_KEY,
+        BASE_RPC_URL: config.BASE_RPC_URL || 'https://mainnet.base.org',
+        X402_MAX_PRICE_USD: config.X402_MAX_PRICE_USD || '0.5',
+        X402_REFRESH_MIN: config.X402_REFRESH_MIN || '5'
+      }
     })
