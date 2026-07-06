@@ -2,7 +2,7 @@
 
 # x402-mcp
 
-MCP server bringing 100+ x402-paid APIs to AI agents (Claude, Cursor, MCP-aware clients). Auto-discovers tools from CDP Bazaar; handles USDC micropayments on Base.
+MCP server bringing 100+ x402-paid APIs to AI agents (Claude, Cursor, MCP-aware clients). Auto-discovers tools from CDP Bazaar; handles USDC micropayments on Base + Solana.
 
 ## Features
 
@@ -10,7 +10,7 @@ MCP server bringing 100+ x402-paid APIs to AI agents (Claude, Cursor, MCP-aware 
 - Reads metadata directly from Bazaar (description, schema, pricing)
 - Refreshes every 5 min — new endpoints appear without restart
 - Handles HTTP 402 + USDC payment automatically
-- Multi-chain ready via x402 protocol (Base today; Solana, Polygon, BNB, EVM expansion)
+- Multi-chain: Base + Solana mainnet live (USDC on both); Polygon/BNB/EVM expandable
 
 ## Install (Claude Desktop)
 
@@ -28,7 +28,7 @@ Add to `claude_desktop_config.json`:
 }
 ```
 
-Set `X402_PRIVATE_KEY` to a Base EOA private key (hex, 0x-prefixed) with USDC on Base mainnet. Restart Claude Desktop. The server auto-discovers ~117 tools on first run.
+Set `X402_PRIVATE_KEY` to a Base EOA private key (hex, 0x-prefixed) with USDC on Base mainnet (Solana payment via SPL USDC also supported). Restart Claude Desktop. The server auto-discovers ~117 tools on first run.
 
 ## Cost Safety
 
@@ -38,7 +38,7 @@ Set `X402_PRIVATE_KEY` to a Base EOA private key (hex, 0x-prefixed) with USDC on
 
 ## How it works
 
-Agent calls tool -> HTTP 402 -> x402-fetch signs EIP-3009 -> CDP Facilitator settles on Base -> response returned. Buyer pays no gas.
+Agent calls tool -> HTTP 402 -> x402-fetch signs EIP-3009 -> CDP Facilitator settles on Base or Solana -> response returned. Buyer pays no gas.
 
 ## Development
 
