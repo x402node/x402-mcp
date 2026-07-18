@@ -3,3 +3,7 @@ node_modules/
 *.log
 .DS_Store
 archive/
+mcp-publisher
+server.json.bak
+node_modules/
+.env

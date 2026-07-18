@@ -2,7 +2,7 @@
 
 # x402-mcp
 
-MCP server bringing 100+ x402-paid APIs to AI agents (Claude, Cursor, MCP-aware clients). Auto-discovers tools from CDP Bazaar; handles USDC micropayments on Base + Solana.
+MCP server bringing hundreds of x402-paid APIs to AI agents (Claude, Cursor, MCP-aware clients). Auto-discovers tools from CDP Bazaar; handles USDC micropayments on Base + Solana.
 
 ## Features
 
