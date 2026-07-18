@@ -1,0 +1,46 @@
+name: Publish MCP Server
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Sync version from tag
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "Publishing version: $VERSION"
+          npm version "$VERSION" --no-git-tag-version --allow-same-version
+          node -e "
+            const fs=require('fs');
+            const s=JSON.parse(fs.readFileSync('server.json','utf8'));
+            s.version='$VERSION';
+            if(s.packages) s.packages.forEach(p=>p.version='$VERSION');
+            fs.writeFileSync('server.json', JSON.stringify(s,null,2));
+          "
+      - name: Install dependencies
+        run: npm ci || npm install
+      - name: Update npm for OIDC
+        run: npm install -g npm@latest
+      - name: Publish to npm (OIDC)
+        run: npm publish --access public
+      - name: Install mcp-publisher
+        run: |
+          ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+          OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+          curl -sSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_${OS}_${ARCH}.tar.gz" | tar xz mcp-publisher
+      - name: Login to MCP Registry (OIDC)
+        run: ./mcp-publisher login github-oidc
+      - name: Publish to MCP Registry
+        run: ./mcp-publisher publish
